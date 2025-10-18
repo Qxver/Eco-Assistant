@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Products"
+        android:icon="@drawable/home_product_icon"
+        android:id="@+id/products"/>
+
+    <item android:title="Deposit"
+        android:icon="@drawable/deposit_icon"
+        android:id="@+id/deposit"/>
+
+    <item android:title="Reports"
+        android:icon="@drawable/reports_icon"
+        android:id="@+id/reports"/>
+
+    <item android:title="Settings"
+        android:icon="@drawable/settings_icon"
+        android:id="@+id/settings"/>
+</menu>
