@@ -2,8 +2,11 @@ package com.example.myapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -52,6 +55,30 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME, null, values);
         db.close();
+    }
+
+    public List<Product> getAllProducts() {
+        List<Product> products = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(ID_COL));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(NAME_COL));
+                int price = cursor.getInt(cursor.getColumnIndexOrThrow(PRICE_COL));
+                String expirationDate = cursor.getString(cursor.getColumnIndexOrThrow(EXPIRATION_DATE_COL));
+                String category = cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY_COL));
+                String shopName = cursor.getString(cursor.getColumnIndexOrThrow(SHOP_NAME_COL));
+                String purchaseDate = cursor.getString(cursor.getColumnIndexOrThrow(PURCHASE_DATE_COL));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION_COL));
+
+                products.add(new Product(id, name, price, expirationDate, category, shopName, purchaseDate, description));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return products;
     }
 
     @Override

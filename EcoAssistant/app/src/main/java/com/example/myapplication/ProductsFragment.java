@@ -5,12 +5,19 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.List;
+import java.util.Collections;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,9 @@ public class ProductsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView productRecyclerView;
+    private ProductAdapter productAdapter;
+    private DBHandler dbHandler;
 
     public ProductsFragment() {
         // Required empty public constructor
@@ -62,14 +72,45 @@ public class ProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_products, container, false);
+        
+        dbHandler = new DBHandler(requireContext());
 
-        // Find and set click listener for the add product button
         FloatingActionButton addProductButton = view.findViewById(R.id.add_product_button);
         addProductButton.setOnClickListener(v -> navigateToAddProducts());
 
+        productRecyclerView = view.findViewById(R.id.product_recycler_view);
+        productRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        loadProducts();
+
         return view;
+    }
+
+    private void loadProducts() {
+        List<Product> productList = dbHandler.getAllProducts();
+        sortByExpirationDate(productList);
+        productAdapter = new ProductAdapter(productList);
+        productRecyclerView.setAdapter(productAdapter);
+    }
+
+    private void sortByExpirationDate(List<Product> products) {
+        products.sort((p1, p2) -> {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date1 = dateFormat.parse(p1.getExpirationDate());
+                Date date2 = dateFormat.parse(p2.getExpirationDate());
+                return date1.compareTo(date2);
+            } catch (ParseException e) {
+                return 0;
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Reload products when fragment comes back to foreground
+        loadProducts();
     }
 
     private void navigateToAddProducts() {
