@@ -13,9 +13,23 @@ import java.util.Date;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> productList;
+    private OnProductClickListener onProductClickListener;
+
+    public interface OnProductClickListener {
+        void onProductClick(Product product);
+    }
 
     public ProductAdapter(List<Product> productList) {
         this.productList = productList;
+    }
+
+    public ProductAdapter(List<Product> productList, OnProductClickListener listener) {
+        this.productList = productList;
+        this.onProductClickListener = listener;
+    }
+
+    public void setOnProductClickListener(OnProductClickListener listener) {
+        this.onProductClickListener = listener;
     }
 
     @Override
@@ -27,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-        holder.bind(product);
+        holder.bind(product, onProductClickListener);
     }
 
     @Override
@@ -48,7 +62,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             this.binding = binding;
         }
 
-        void bind(Product product) {
+        void bind(Product product, OnProductClickListener listener) {
             binding.productName.setText(product.getName());
             binding.productPrice.setText("Price: " + product.getPrice() + "$");
             binding.productCategory.setText("Category: " + product.getCategory());
@@ -58,6 +72,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 binding.productExpirationDate.setTextColor(Color.RED);
                 binding.productExpirationDate.setText("Expired: " + product.getExpirationDate());
             }
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onProductClick(product);
+                }
+            });
         }
 
         private boolean isProductExpired(String expirationDate) {

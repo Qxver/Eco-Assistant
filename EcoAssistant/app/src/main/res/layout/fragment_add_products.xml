@@ -81,15 +81,18 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/product_expiration_date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter expiration date"
+                android:hint="Select expiration date"
                 android:padding="12dp"
-                android:inputType="date"
                 android:background="@android:drawable/editbox_background"
-                android:layout_marginBottom="16dp" />
+                android:textColorHint="#999999"
+                android:layout_marginBottom="16dp"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <!-- Category -->
             <TextView
@@ -138,15 +141,18 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/product_purchase_date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter purchase date"
+                android:hint="Select purchase date"
                 android:padding="12dp"
-                android:inputType="date"
                 android:background="@android:drawable/editbox_background"
-                android:layout_marginBottom="16dp" />
+                android:textColorHint="#999999"
+                android:layout_marginBottom="16dp"
+                android:textSize="14sp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <!-- Description -->
             <TextView

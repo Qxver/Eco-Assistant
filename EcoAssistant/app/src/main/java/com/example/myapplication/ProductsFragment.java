@@ -89,7 +89,7 @@ public class ProductsFragment extends Fragment {
     private void loadProducts() {
         List<Product> productList = dbHandler.getAllProducts();
         sortByExpirationDate(productList);
-        productAdapter = new ProductAdapter(productList);
+        productAdapter = new ProductAdapter(productList, product -> navigateToProductInfo(product));
         productRecyclerView.setAdapter(productAdapter);
     }
 
@@ -117,6 +117,14 @@ public class ProductsFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, new AddProductsFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    private void navigateToProductInfo(Product product) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, ProductInfoFragment.newInstance(product));
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
