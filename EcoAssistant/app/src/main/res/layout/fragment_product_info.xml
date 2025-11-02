@@ -22,24 +22,54 @@
         android:id="@+id/product_info_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Product Details"
+        android:textColor="#333333"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="#333333"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
-        app:layout_constraintTop_toTopOf="@+id/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/back_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="@+id/back_button" />
+
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/edit"
+        android:src="@drawable/edit_icon"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/delete_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/delete_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="336dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/delete_icon"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_button"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,183 +81,198 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product Name"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_name_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:textColor="#333333"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <!-- Price -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_price_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Category -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Category"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_category_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Expiration Date -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Expiration Date"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_expiration_date_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Purchase Date -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Purchase Date"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_purchase_date_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Shop Name -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shop"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_shop_name_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Description -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/border"
-                android:padding="16dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Description"
-                    android:textSize="14sp"
                     android:textColor="#999999"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/product_description_detail"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="#333333" />
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>

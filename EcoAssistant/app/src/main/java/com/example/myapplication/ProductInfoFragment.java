@@ -1,24 +1,23 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.EditText;
 
 public class ProductInfoFragment extends Fragment {
 
     private static final String ARG_PRODUCT = "product";
     private Product product;
+    private EditText productName, productPrice, productCategory, productExpirationDate, productPurchaseDate, productShopName, productDescription;
+    private boolean isEditing = false;
+    private DBHandler dbHandler;
 
     public ProductInfoFragment() {
-        // Required empty public constructor
     }
 
     public static ProductInfoFragment newInstance(Product product) {
@@ -42,18 +41,41 @@ public class ProductInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product_info, container, false);
 
+        dbHandler = new DBHandler(requireContext());
+
+        productName = view.findViewById(R.id.product_name_detail);
+        productPrice = view.findViewById(R.id.product_price_detail);
+        productCategory = view.findViewById(R.id.product_category_detail);
+        productExpirationDate = view.findViewById(R.id.product_expiration_date_detail);
+        productPurchaseDate = view.findViewById(R.id.product_purchase_date_detail);
+        productShopName = view.findViewById(R.id.product_shop_name_detail);
+        productDescription = view.findViewById(R.id.product_description_detail);
+
         ImageButton backButton = view.findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> goBack());
 
+        ImageButton editButton = view.findViewById(R.id.edit_button);
+        editButton.setOnClickListener(v -> toggleEdit());
+
+        ImageButton deleteButton = view.findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(v -> {
+            if (product != null) {
+                dbHandler.deleteProduct(product.getId());
+            }
+            goBack();
+        });
+
         if (product != null) {
-            ((TextView) view.findViewById(R.id.product_name_detail)).setText(product.getName());
-            ((TextView) view.findViewById(R.id.product_price_detail)).setText(product.getPrice() + "$");
-            ((TextView) view.findViewById(R.id.product_category_detail)).setText("" + product.getCategory());
-            ((TextView) view.findViewById(R.id.product_expiration_date_detail)).setText("" + product.getExpirationDate());
-            ((TextView) view.findViewById(R.id.product_purchase_date_detail)).setText("" + product.getPurchaseDate());
-            ((TextView) view.findViewById(R.id.product_shop_name_detail)).setText("" + product.getShopName());
-            ((TextView) view.findViewById(R.id.product_description_detail)).setText("" + product.getDescription());
+            productName.setText(product.getName());
+            productPrice.setText(product.getPrice() + "$");
+            productCategory.setText("" + product.getCategory());
+            productExpirationDate.setText("" + product.getExpirationDate());
+            productPurchaseDate.setText("" + product.getPurchaseDate());
+            productShopName.setText("" + product.getShopName());
+            productDescription.setText("" + product.getDescription());
         }
+
+        setEditing(false);
 
         return view;
     }
@@ -61,5 +83,20 @@ public class ProductInfoFragment extends Fragment {
     private void goBack() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.popBackStack();
+    }
+
+    private void toggleEdit() {
+        isEditing = !isEditing;
+        setEditing(isEditing);
+    }
+
+    private void setEditing(boolean editing) {
+        productName.setEnabled(editing);
+        productPrice.setEnabled(editing);
+        productCategory.setEnabled(editing);
+        productExpirationDate.setEnabled(editing);
+        productPurchaseDate.setEnabled(editing);
+        productShopName.setEnabled(editing);
+        productDescription.setEnabled(editing);
     }
 }

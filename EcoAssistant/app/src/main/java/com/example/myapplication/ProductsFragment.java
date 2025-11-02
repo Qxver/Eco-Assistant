@@ -109,7 +109,6 @@ public class ProductsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Reload products when fragment comes back to foreground
         loadProducts();
     }
 

@@ -49,10 +49,8 @@ public class AddProductsFragment extends Fragment {
         productPurchaseDateInput = view.findViewById(R.id.product_purchase_date_input);
         productDescriptionInput = view.findViewById(R.id.product_description_input);
 
-        // Set up date picker for expiration date
         productExpirationDateInput.setOnClickListener(v -> showExpirationDatePicker());
 
-        // Set up date picker for purchase date
         productPurchaseDateInput.setOnClickListener(v -> showPurchaseDatePicker());
 
         addButton = view.findViewById(R.id.add_product_button);
@@ -74,7 +72,7 @@ public class AddProductsFragment extends Fragment {
         String description = productDescriptionInput.getText().toString().trim();
 
         if (name.isEmpty() || priceStr.isEmpty() || expirationDate.isEmpty() || 
-            category.isEmpty() || shopName.isEmpty() || purchaseDate.isEmpty()) {
+            category.isEmpty() || shopName.isEmpty() || purchaseDate.isEmpty() || description.isEmpty()) {
             Toast.makeText(requireContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
