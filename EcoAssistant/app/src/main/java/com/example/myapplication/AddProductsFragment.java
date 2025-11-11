@@ -79,6 +79,10 @@ public class AddProductsFragment extends Fragment {
 
         try {
             int price = Integer.parseInt(priceStr);
+            if (price <= 0) {
+                Toast.makeText(requireContext(), "Price must be greater than 0", Toast.LENGTH_SHORT).show();
+                return;
+            }
             dbHandler.addNewProduct(name, price, expirationDate, category, shopName, purchaseDate, description);
             Toast.makeText(requireContext(), "Product added successfully!", Toast.LENGTH_SHORT).show();
             getParentFragmentManager().popBackStack();
@@ -102,6 +106,7 @@ public class AddProductsFragment extends Fragment {
                 expirationCalendar.get(Calendar.MONTH),
                 expirationCalendar.get(Calendar.DAY_OF_MONTH)
         );
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
 

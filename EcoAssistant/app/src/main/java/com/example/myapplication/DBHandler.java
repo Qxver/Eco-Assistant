@@ -81,9 +81,23 @@ public class DBHandler extends SQLiteOpenHelper {
         return products;
     }
 
+    public void updateProduct(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NAME_COL, product.getName());
+        values.put(PRICE_COL, product.getPrice());
+        values.put(EXPIRATION_DATE_COL, product.getExpirationDate());
+        values.put(CATEGORY_COL, product.getCategory());
+        values.put(SHOP_NAME_COL, product.getShopName());
+        values.put(PURCHASE_DATE_COL, product.getPurchaseDate());
+        values.put(DESCRIPTION_COL, product.getDescription());
+        db.update(TABLE_NAME, values, ID_COL + " = ?", new String[]{String.valueOf(product.getId())});
+        db.close();
+    }
+
     public void deleteProduct(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, ID_COL + "=?", new String[]{String.valueOf(id)});
+        db.delete(TABLE_NAME, ID_COL + " = ?", new String[]{String.valueOf(id)});
         db.close();
     }
 
