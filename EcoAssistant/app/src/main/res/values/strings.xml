@@ -8,4 +8,6 @@
     <string name="edit">edit</string>
     <string name="delete">edit</string>
     <string name="save_edit">save_edit</string>
+    <string name="add_bottle" />
+    <string name="add_deposit" />
 </resources>
