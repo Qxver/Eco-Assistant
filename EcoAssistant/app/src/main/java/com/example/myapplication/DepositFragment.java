@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +30,9 @@ public class DepositFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView depositRecyclerView;
+    private DepositAdapter depositAdapter;
+    private DBHandler dbHandler;
 
     public DepositFragment() {
         // Required empty public constructor
@@ -63,9 +69,31 @@ public class DepositFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deposit, container, false);
+        
+        dbHandler = new DBHandler(requireContext());
+
         FloatingActionButton addDepositButton = view.findViewById(R.id.add_deposit_button);
         addDepositButton.setOnClickListener(v -> navigateToAddDeposit());
+
+        depositRecyclerView = view.findViewById(R.id.deposit_recycler_view);
+        depositRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        loadDeposits();
+
         return view;
+    }
+
+    private void loadDeposits() {
+        List<Deposit> depositList = dbHandler.getAllDeposits();
+        depositAdapter = new DepositAdapter(depositList, deposit -> {
+            // Handle deposit click if needed
+        });
+        depositRecyclerView.setAdapter(depositAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadDeposits();
     }
 
     private void navigateToAddDeposit() {
